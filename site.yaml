@@ -1,73 +1,21 @@
-mode: learning
-media_root: media
-media_url: /media
-base_url: /
-# If your site is nested inside of a bigger one, you can use media_url and
-# base_url to properly generate links on your site. For example, if your URL
-# will be some.domain.com/starter/, use:
-#   media_url: /starter/media
-#   base_url: /starter/
-template: hyde.ext.templates.jinja.Jinja2Template
+mode: development # Use "hyde publish -c prod.yaml to have this automatically switch to production
+media_root: media # Relative path from content folder.
+media_url: /media # URL where the media files are served from.
 plugins:
     - hyde.ext.plugins.meta.MetaPlugin
     - hyde.ext.plugins.auto_extend.AutoExtendPlugin
-    - hyde.ext.plugins.sorter.SorterPlugin
-    - hyde.ext.plugins.tagger.TaggerPlugin
     - hyde.ext.plugins.syntext.SyntextPlugin
     - hyde.ext.plugins.textlinks.TextlinksPlugin
 context:
     data:
-        tweet_via: aamikkelsen
+        site_title: Site Name
+        author:
+            name: Your Name Here
+            url: "http://example.com"
+        google_analytics_id: UA-XXXXX-YY
+        home_url: index.html
         menu:
-            -
-                name: About
-                description: About me and this site 
-                css_class: about
-                type: node
-                url: about
-            -
-                name: Log
-                description: Miscellaneous material
-                css_class: log
-                type: node
-                url: log 
-            -
-                name: Research
-                description: Research projects
-                css_class: research
-                type: node
-                url: research
-publisher:
-    github:
-        type: hyde.ext.publishers.dvcs.Git
-        path: ../aagaard.github.com
-        url: git@github.com:aagaard/aagaard.github.com.git
-
-meta:
-    nodemeta: meta.yaml
-    created: !!timestamp 2011-04-01 00:00:00
-    author: Fernando Paolo 
-sorter:
-    time:
-        attr:
-            - meta.created
-        reverse: true
-        filters:
-            source.kind: html
-            meta.listable: true
-tagger:
-    sorter: time
-    archives:
-        log:
-            source: log
-            target: log/tags
-            template: tagged_posts.j2
-            archive_extension: html
-markdown:
-    extensions:
-        - def_list
-        - tables
-        - headerid
-        - codehilite
-        - footnotes
-        - toc
+            - title: Home
+              url: index.html
+            - title: Landing
+              url: landing.html

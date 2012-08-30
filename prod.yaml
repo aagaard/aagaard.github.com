@@ -1,0 +1,8 @@
+extends: site.yaml
+mode: production
+
+publisher:
+    github:
+        type: hyde.ext.publishers.dvcs.Git
+        path: ../aagaard.github.com
+        url: git@github.com:aagaard/aagaard.github.com.git
