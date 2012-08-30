@@ -11,89 +11,63 @@ template: hyde.ext.templates.jinja.Jinja2Template
 plugins:
     - hyde.ext.plugins.meta.MetaPlugin
     - hyde.ext.plugins.auto_extend.AutoExtendPlugin
-    # Plugins needed for the advances section.
     - hyde.ext.plugins.sorter.SorterPlugin
-    - hyde.ext.plugins.grouper.GrouperPlugin
     - hyde.ext.plugins.tagger.TaggerPlugin
+    - hyde.ext.plugins.syntext.SyntextPlugin
+    - hyde.ext.plugins.textlinks.TextlinksPlugin
 context:
     data:
-        author:
-            name: Merlin Rebrović
-            url: "http://merlin.rebrovic.net"
-        layout:
-            name: Hyde Starter Kit
-            url: "https://github.com/merlinrebrovic/hyde-starter-kit"
-        project:
-            name: Hyde
-            url: "http://hyde.github.com"
-            install: "http://hyde.github.com/install.html"
+        tweet_via: aamikkelsen
         menu:
-          - title: Home
-            url: index.html
-          - title: First steps
-            url: first-steps.html
-          - title: Advanced topics
-            url: advanced/overview.html
-          - title: About
-            url: about.html
+            -
+                name: About
+                description: About me and this site 
+                css_class: about
+                type: node
+                url: about
+            -
+                name: Log
+                description: Miscellaneous material
+                css_class: log
+                type: node
+                url: log 
+            -
+                name: Research
+                description: Research projects
+                css_class: research
+                type: node
+                url: research
 publisher:
     github:
         type: hyde.ext.publishers.dvcs.Git
-        #path: ../fspaolo.github.com/deploy  # publish on `deploy` folder
         path: ../aagaard.github.com
         url: git@github.com:aagaard/aagaard.github.com.git
-### Advanced part ###
 
-# This defines meta data on the whole site.
 meta:
-    # 'nodemeta' will tell Hyde what file to look for inside a folder from
-    # which to apply meta data to all files (resources) inside it. This is
-    # a great way of simply adding or modifying properties of a very large
-    # number of files.
     nodemeta: meta.yaml
-    ga_tracking_code: XX-XXXXXXXX-X
-
+    created: !!timestamp 2011-04-01 00:00:00
+    author: Fernando Paolo 
 sorter:
-    name: # the name of the sorter (no pun intended)
-        attr: name # by which attributes will resources be sorted
+    time:
+        attr:
+            - meta.created
+        reverse: true
         filters:
-            source_file.kind: html
-            # You can include only files from a certain folder.
-            #resource.node: (name of the folder)
-        #reverse: True # if you need the list backwards
-    file_type:
-        attr: 
-            - source_file.kind
-            - source_file.size
-    index:
-        attr: meta.index
-        filters:
-            source_file.kind: html
-    learning_order:
-        attr: meta.learning_order
-        filters:
-            source_file.kind: html
-
-grouper:
-    level:
-        sorter: name
-        description: Difficulty levels
-        groups:
-            - name: basic
-              description: Basic
-            - name: advanced
-              description: Advanced
-    # You can have more than one group section, depending on your needs.
-    # For example: "categories", "menu sections", etc.
-    #category:
-    #    description: To which category a blog post belongs to.
-    #    groups:
-    #        - name: software
-    #          description: Software engineering
-    #        - name: web
-    #          description: Web technologies
-    #        - name: seo
-    #          description: Search Engine Optimization
-
+            source.kind: html
+            meta.listable: true
 tagger:
-    sorter: name
+    sorter: time
+    archives:
+        log:
+            source: log
+            target: log/tags
+            template: tagged_posts.j2
+            archive_extension: html
+markdown:
+    extensions:
+        - def_list
+        - tables
+        - headerid
+        - codehilite
+        - footnotes
+        - toc
